@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parshavanath Chandrakant Dhupadale | Full-Stack Developer</title>
+    <meta name="description" content="Portfolio of Parshavanath Chandrakant Dhupadale, a Full-Stack Developer specialized in Node.js and React.">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#10b981', // Emerald green
+                        dark: '#0f172a',    // Slate 900
+                        card: '#1e293b',    // Slate 800
+                        light: '#f1f5f9',   // Slate 100
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .section-padding {
+            padding-top: 5rem;
+            padding-bottom: 5rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(to right, #10b981, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Custom Scroll Reveal Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Background Particle Canvas */
+        #bg-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .project-card:hover .project-visual {
+            transform: scale(1.05);
+        }
+
+        .project-visual {
+            transition: transform 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-dark text-slate-300 font-sans antialiased selection:bg-primary selection:text-white overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300" id="navbar">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+           <a href="#" class="text-2xl font-bold text-white tracking-tight">
+                <span class="text-primary">P</span>arshavanath
+            </a> 
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex space-x-8 text-sm font-medium items-center">
+                <a href="#about" class="hover:text-primary transition-colors">About</a>
+                <a href="#skills" class="hover:text-primary transition-colors">Skills</a>
+                <a href="#projects" class="hover:text-primary transition-colors">Projects</a>
+                <a href="#education" class="hover:text-primary transition-colors">Education</a>
+                <a href="#contact" class="px-5 py-2.5 bg-primary/10 border border-primary/50 text-primary rounded-full hover:bg-primary hover:text-white transition-all transform hover:-translate-y-1">Contact Me</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-white" id="mobile-menu-btn">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div class="md:hidden hidden bg-card absolute w-full border-b border-gray-700 shadow-2xl" id="mobile-menu">
+            <div class="flex flex-col px-6 py-4 space-y-4">
+                <a href="#about" class="hover:text-primary py-2" onclick="toggleMenu()">About</a>
+                <a href="#skills" class="hover:text-primary py-2" onclick="toggleMenu()">Skills</a>
+                <a href="#projects" class="hover:text-primary py-2" onclick="toggleMenu()">Projects</a>
+                <a href="#education" class="hover:text-primary py-2" onclick="toggleMenu()">Education</a>
+                <a href="#contact" class="text-primary font-semibold py-2" onclick="toggleMenu()">Contact Me</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center pt-20 relative overflow-hidden">
+        <canvas id="bg-canvas"></canvas>
+        
+        <!-- Background Glows -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-primary/10 rounded-full blur-[100px] animate-pulse-slow"></div>
+        <div class="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+
+        <div class="container mx-auto px-6 text-center z-10 reveal">
+            <img src="/myphoto.jpeg" alt="Parshavanath Chandrakant Dhupadale" class="mx-auto mb-8 w-40 h-40 rounded-full object-cover shadow-xl border-4 border-primary/50 animate-float">
+            <div class="inline-block mb-6 px-4 py-1 rounded-full bg-slate-800/50 border border-slate-700/50 text-xs font-semibold tracking-wider text-primary uppercase animate-float">
+                Available for hire
+            </div>
+            <h1 class="text-5xl md:text-8xl font-bold text-white mb-6 leading-tight tracking-tight">
+                Hi, I'm <br class="md:hidden" /> <span class="gradient-text">Parshavanath.</span>
+            </h1>
+            <h2 class="text-2xl md:text-4xl text-slate-400 mb-8 font-light">
+                Full-Stack Developer
+            </h2>
+            <p class="max-w-2xl mx-auto text-slate-400 mb-10 text-lg md:text-xl leading-relaxed">
+                Architecting scalable backends and crafting high-performance frontends. I turn complex problems into elegant, maintainable digital solutions.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-6">
+                <a href="#projects" class="group px-10 py-4 bg-primary text-white font-semibold rounded-xl hover:bg-emerald-600 transition-all shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-2 transform hover:scale-105 active:scale-95 w-full sm:w-auto">
+                    View My Work <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                </a>
+                <!-- Resume Download Button -->
+                <a href="https://1drv.ms/b/c/3f4111313efc23d1/IQB8sDqs9as0T6ELPLAvKMHBAfjwTnuWJ8tr08KX2-bXpfg?e=cDxiCQ" download="Parshavanath_Resume.pdf" class="group px-10 py-4 bg-slate-800/50 text-white font-semibold rounded-xl hover:bg-slate-700 transition-all border border-slate-700 backdrop-blur-sm transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2 w-full sm:w-auto">
+                    <i data-lucide="download" class="w-5 h-5 text-primary group-hover:animate-bounce"></i> Download CV
+                </a>
+            </div>
+            
+            <div class="mt-20 flex justify-center gap-8 text-slate-500">
+                <a href="https://github.com/parsh2002" target="_blank" class="hover:text-primary hover:scale-110 transition-all duration-300" aria-label="GitHub">
+                    <i data-lucide="github" class="w-7 h-7"></i>
+                </a>
+                <a href="https://www.linkedin.com/feed/" target="_blank" class="hover:text-blue-500 hover:scale-110 transition-all duration-300" aria-label="LinkedIn">
+                    <i data-lucide="linkedin" class="w-7 h-7"></i>
+                </a>
+                <a href="mailto:parshwanathdhupadale942@gmail.com" class="hover:text-red-400 hover:scale-110 transition-all duration-300" aria-label="Email">
+                    <i data-lucide="mail" class="w-7 h-7"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-slate-500 opacity-50">
+            <span class="text-[10px] uppercase tracking-widest">Scroll</span>
+            <div class="w-px h-12 bg-gradient-to-b from-primary to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="bg-card section-padding relative overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Technical Arsenal</h2>
+                <div class="h-1.5 w-24 bg-primary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Frontend -->
+                <div class="bg-dark p-10 rounded-3xl border border-slate-700/50 hover:border-primary/50 transition-all duration-500 reveal group hover:-translate-y-2">
+                    <div class="w-14 h-14 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 mb-8 group-hover:rotate-12 transition-transform">
+                        <i data-lucide="layout" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-6">Frontend</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-1.5 bg-slate-800 text-sm rounded-lg text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors cursor-default">React.js</span>
+                        <span class="px-4 py-1.5 bg-slate-800 text-sm rounded-lg text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors cursor-default">HTML5/CSS3</span>
+                        <span class="px-4 py-1.5 bg-slate-800 text-sm rounded-lg text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors cursor-default">JavaScript</span>
+                        <span class="px-4 py-1.5 bg-slate-800 text-sm rounded-lg text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors cursor-default">Tailwind</span>
+                        <span class="px-4 py-1.5 bg-slate-800 text-sm rounded-lg text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors cursor-default">Bootstrap</span>
+                    </div>
+                </div>
+
+                <!-- Backend -->
+                <div class="bg-dark p-10 rounded-3xl border border-slate-700/50 hover:border-primary/50 transition-all duration-500 reveal group hover:-translate-y-2" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 mb-8 group-hover:rotate-12 transition-transform">
+                        <i data-lucide="server" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-6">Backend</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-1.5 bg-slate-800 text-sm rounded-lg text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors cursor-default">Node.js</span>
+                        <span class="px-4 py-1.5 bg-slate-800 text-sm rounded-lg text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors cursor-default">Express</span>
+                        <span class="px-4 py-1.5 bg-slate-800 text-sm rounded-lg text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors cursor-default">RESTful APIs</span>
+                        <span class="px-4 py-1.5 bg-slate-800 text-sm rounded-lg text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors cursor-default">JWT</span>
+                    </div>
+                </div>
+
+                <!-- Database -->
+                <div class="bg-dark p-10 rounded-3xl border border-slate-700/50 hover:border-primary/50 transition-all duration-500 reveal group hover:-translate-y-2" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 bg-green-500/10 rounded-2xl flex items-center justify-center text-green-400 mb-8 group-hover:rotate-12 transition-transform">
+                        <i data-lucide="database" class="w-8 h-8"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-6">Persistence</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="px-4 py-1.5 bg-slate-800 text-sm rounded-lg text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors cursor-default">MongoDB</span>
+                        <span class="px-4 py-1.5 bg-slate-800 text-sm rounded-lg text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors cursor-default">Mongoose</span>
+                        <span class="px-4 py-1.5 bg-slate-800 text-sm rounded-lg text-slate-300 border border-slate-700 hover:bg-slate-700 transition-colors cursor-default">SQL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section-padding bg-dark relative">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div>
+                    <h2 class="text-4xl font-bold text-white mb-4">Selected Work</h2>
+                    <p class="text-slate-400 text-lg">Proof of concepts and production-grade applications.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Project 1 -->
+                <div class="group bg-card rounded-[2rem] overflow-hidden border border-slate-700/50 hover:border-primary/30 transition-all duration-500 reveal project-card">
+                    <div class="aspect-video bg-slate-900 relative overflow-hidden p-1">
+                        <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/40 to-slate-950 flex items-center justify-center project-visual">
+                            <i data-lucide="leaf" class="w-20 h-20 text-emerald-400 opacity-40 group-hover:scale-110 transition-transform duration-700"></i>
+                        </div>
+                    </div>
+                    <div class="p-10">
+                        <h3 class="text-3xl font-bold text-white mb-4 group-hover:text-primary transition-colors">Medical Plants Detection</h3>
+                        <p class="text-slate-400 mb-8 leading-relaxed">
+                            Machine learning meets botanical science. I built a platform that processes image data to identify medicinal properties and species with high accuracy.
+                        </p>
+                        <div class="flex flex-wrap gap-3 mb-8">
+                            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 bg-primary/10 rounded text-primary">ML Integration</span>
+                            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 bg-blue-500/10 rounded text-blue-400">Node.js</span>
+                        </div>
+                        <a href="#" class="inline-flex items-center text-primary font-bold hover:gap-3 transition-all">
+                            EXPLORE CASE STUDY <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="group bg-card rounded-[2rem] overflow-hidden border border-slate-700/50 hover:border-primary/30 transition-all duration-500 reveal project-card" style="transition-delay: 150ms;">
+                    <div class="aspect-video bg-slate-900 relative overflow-hidden p-1">
+                         <div class="absolute inset-0 bg-gradient-to-br from-blue-900/40 to-slate-950 flex items-center justify-center project-visual">
+                            <i data-lucide="cloud-sun" class="w-20 h-20 text-blue-400 opacity-40 group-hover:scale-110 transition-transform duration-700"></i>
+                        </div>
+                    </div>
+                    <div class="p-10">
+                        <h3 class="text-3xl font-bold text-white mb-4 group-hover:text-primary transition-colors">Hyper-Local Weather</h3>
+                        <p class="text-slate-400 mb-8 leading-relaxed">
+                            Real-time atmospheric data delivery. Focused on performance optimization and sleek UX using dynamic OpenWeatherMap API integrations.
+                        </p>
+                        <div class="flex flex-wrap gap-3 mb-8">
+                            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 bg-primary/10 rounded text-primary">API First</span>
+                            <span class="text-xs font-bold uppercase tracking-wider px-3 py-1 bg-blue-500/10 rounded text-blue-400">Frontend Dev</span>
+                        </div>
+                        <a href="#" class="inline-flex items-center text-primary font-bold hover:gap-3 transition-all">
+                            EXPLORE CASE STUDY <i data-lucide="chevron-right" class="w-5 h-5 ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="section-padding bg-card relative overflow-hidden">
+        <div class="container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Academic Background</h2>
+                <div class="h-1.5 w-24 bg-primary mx-auto rounded-full"></div>
+            </div>
+
+            <div class="space-y-12 relative">
+                <!-- Vertical Line -->
+                <div class="absolute left-0 md:left-1/2 top-0 bottom-0 w-px bg-slate-700 -translate-x-px md:-translate-x-1/2"></div>
+                
+                <!-- B-Tech -->
+                <div class="relative flex flex-col md:flex-row items-center gap-8 md:gap-0 reveal">
+                    <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1">
+                        <h3 class="text-2xl font-bold text-white mb-2">B-Tech Engineering</h3>
+                        <p class="text-primary font-semibold mb-2">Dr. A. D Shinde College of Engineering</p>
+                        <p class="text-slate-400 text-sm">Shivaji University | CGPA: 6.4</p>
+                    </div>
+                    <div class="z-10 w-12 h-12 bg-dark border-4 border-slate-700 rounded-full flex items-center justify-center text-primary order-1 md:order-2">
+                        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+                    </div>
+                    <div class="md:w-1/2 md:pl-12 order-3">
+                        <span class="px-4 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-bold tracking-widest">2023 — 2026</span>
+                    </div>
+                </div>
+
+                <!-- Diploma -->
+                <div class="relative flex flex-col md:flex-row items-center gap-8 md:gap-0 reveal" style="transition-delay: 200ms;">
+                    <div class="md:w-1/2 md:pr-12 order-3 md:order-1 md:text-right">
+                         <span class="px-4 py-1 bg-slate-700 text-slate-300 rounded-full text-xs font-bold tracking-widest">2020 — 2022</span>
+                    </div>
+                    <div class="z-10 w-12 h-12 bg-dark border-4 border-slate-700 rounded-full flex items-center justify-center text-slate-400 order-1 md:order-2">
+                        <i data-lucide="book" class="w-6 h-6"></i>
+                    </div>
+                    <div class="md:w-1/2 md:pl-12 order-2 md:order-3">
+                        <h3 class="text-2xl font-bold text-white mb-2">Diploma</h3>
+                        <p class="text-slate-300 font-semibold mb-2">Sant Gajanan Maharaj Rural Polytechnic</p>
+                        <p class="text-slate-400 text-sm">Score: 69.60%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-padding bg-dark">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <!-- Contact Info -->
+                <div class="reveal">
+                    <h2 class="text-5xl font-bold text-white mb-8 leading-tight">Let's build something <span class="text-primary underline decoration-2 underline-offset-8">extraordinary</span>.</h2>
+                    <p class="text-slate-400 mb-12 text-xl max-w-lg leading-relaxed">
+                        I thrive in collaborative environments and am ready for the next challenge. Reach out via email or phone anytime.
+                    </p>
+                    
+                    <div class="space-y-8">
+                        <div class="flex items-center group">
+                            <div class="w-14 h-14 bg-card border border-slate-700 rounded-2xl flex items-center justify-center text-primary shrink-0 mr-6 group-hover:bg-primary group-hover:text-white transition-all">
+                                <i data-lucide="mail" class="w-7 h-7"></i>
+                            </div>
+                            <a href="mailto:parshwanathdhupadale942@gmail.com" class="text-lg text-slate-300 hover:text-primary transition-colors truncate">
+                                parshwanathdhupadale942@gmail.com
+                            </a>
+                        </div>
+
+                        <div class="flex items-center group">
+                            <div class="w-14 h-14 bg-card border border-slate-700 rounded-2xl flex items-center justify-center text-primary shrink-0 mr-6 group-hover:bg-primary group-hover:text-white transition-all">
+                                <i data-lucide="phone" class="w-7 h-7"></i>
+                            </div>
+                            <a href="tel:+919322566561" class="text-lg text-slate-300 hover:text-primary transition-colors">
+                                +91 9322566561
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Card -->
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 p-10 rounded-3xl border border-slate-700/60 shadow-2xl relative overflow-hidden group transition-all duration-500 hover:shadow-primary/20 hover:scale-[1.01] reveal" style="transition-delay: 200ms;">
+    <!-- Decorative blurred orb -->
+    <div class="absolute -top-20 -right-20 w-64 h-64 bg-primary/10 rounded-full blur-3xl opacity-70 group-hover:opacity-90 transition-opacity duration-700"></div>
+    <div class="absolute -bottom-32 -left-20 w-80 h-80 bg-indigo-600/5 rounded-full blur-3xl opacity-60"></div>
+
+    <h3 class="text-2xl font-bold text-white mb-8 tracking-tight">Get in Touch</h3>
+
+    <form class="contact-form space-y-6" action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+        <div>
+            <label for="name" class="block text-sm font-medium text-slate-300 mb-2">Your Name</label>
+            <input 
+                type="text" 
+                id="name" 
+                name="name" 
+                required 
+                class="w-full px-5 py-3 bg-slate-800/60 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/30 transition-all duration-300"
+                placeholder="John Doe"
+            />
+        </div>
+
+        <div>
+            <label for="email" class="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
+            <input 
+                type="email" 
+                id="email" 
+                name="email" 
+                required 
+                class="w-full px-5 py-3 bg-slate-800/60 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/30 transition-all duration-300"
+                placeholder="example@email.com"
+            />
+        </div>
+
+        <div>
+            <label for="message" class="block text-sm font-medium text-slate-300 mb-2">Your Message</label>
+            <textarea 
+                id="message" 
+                name="message" 
+                rows="5" 
+                required 
+                class="w-full px-5 py-3 bg-slate-800/60 border border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/30 transition-all duration-300 resize-y min-h-[120px]"
+                placeholder="Hi Parshvanath, I'd like to discuss..."
+            ></textarea>
+        </div>
+
+        <button 
+            type="submit"
+            class="w-full py-4 px-6 bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl shadow-lg shadow-primary/20 hover:shadow-primary/40 transform hover:-translate-y-1 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-slate-900"
+        >
+            Send Message →
+        </button>
+    </form>
+</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark border-t border-slate-800 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <div class="mb-8 text-2xl font-bold text-white"><span class="text-primary">Thank You</span></div>
+            <p class="text-slate-500 text-sm mb-6">
+                &copy; <span id="year"></span> Parshavanath Chandrakant Dhupadale.
+            </p>
+            <p class="text-slate-600 text-[10px] max-w-xl mx-auto italic leading-relaxed uppercase tracking-widest opacity-60">
+                Declaration: Information provided is accurate to the best of my knowledge and I bear full responsibility for its correctness.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Set current year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        function toggleMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.classList.add('py-2', 'shadow-2xl');
+                nav.classList.remove('py-4');
+            } else {
+                nav.classList.remove('py-2', 'shadow-2xl');
+                nav.classList.add('py-4');
+            }
+        });
+
+        // Scroll Reveal Logic
+        function reveal() {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 100;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', reveal);
+        window.addEventListener('load', reveal);
+
+        // Particle Background Canvas
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+                this.opacity = Math.random() * 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.x < 0) this.x = canvas.width;
+                if (this.y > canvas.height) this.y = 0;
+                if (this.y < 0) this.y = canvas.height;
+            }
+            draw() {
+                ctx.fillStyle = `rgba(16, 185, 129, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            for (let i = 0; i < 60; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            initParticles();
+        });
+
+        resizeCanvas();
+        initParticles();
+        animate();
+    </script>
+</body>
+</html>
